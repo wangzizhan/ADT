@@ -23,7 +23,7 @@ int main(void) {
 	long line_wait = 0;
 	
 	InitializeQueue(&line);
-	srand(time(0));
+	srand(time(0));//time(0) is a seed
 	puts("Case Study:Sigmund Lander's Advice Booth");
 	puts("Enter the number of simulation hours:");	
 	scanf("%d",&hours);
@@ -42,7 +42,7 @@ int main(void) {
 				EnQueue(temp,&line);
 			}
 		}
-		if(wait_time <= 0 && QueueIsEmpty(&line)) {
+		if(wait_time <= 0 && !QueueIsEmpty(&line)) {
 			DeQueue(&temp,&line);
 			wait_time = temp.processtime;
 			line_wait += cycle - temp.arrive;
@@ -73,7 +73,7 @@ bool newcustomer(double x) {
 		return true;
 	else
 		return false;
-}
+}//RAND_MAX rand()
 
 Item customertime(long when) {
 	Item cust;

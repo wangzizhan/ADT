@@ -14,13 +14,13 @@ typedef struct item {
 typedef struct node {
 	Item item;
 	struct node * next;	
-} Node;
+} Node; //node structure
 
 typedef struct queue {
 	Node * front;
 	Node * rear;
 	int items;
-} Queue;
+} Queue; //queue structure
 
 void InitializeQueue(Queue * pq);
 

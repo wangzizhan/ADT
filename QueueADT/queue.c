@@ -31,7 +31,7 @@ bool EnQueue(Item item,Queue * pq) {
 	if(pnew == NULL) {
 		fprintf(stderr,"Unable to allocate memory!\n");
 		exit(1);
-	}
+	} //memory
 	CopyToNode(item,pnew);
 	pnew->next = NULL;
 	if(QueueIsEmpty(pq))
@@ -45,7 +45,7 @@ bool EnQueue(Item item,Queue * pq) {
 }
 
 bool DeQueue(Item * pitem,Queue * pq) {
-	Node * pt;
+	Node * pt;//temp pointer
 	
 	if(QueueIsEmpty(pq))
 		return false;
