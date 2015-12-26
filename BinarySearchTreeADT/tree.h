@@ -8,7 +8,7 @@
 typedef struct item {
 	char petname[20];
 	char petkind[20];
-} Item;
+} Item; //depends on your needs
 
 typedef struct node {
 	Item item;
