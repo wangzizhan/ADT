@@ -40,5 +40,54 @@ int TreeItemCount(const Tree * ptree) {
 	return ptree->size;
 }
 
+bool AddItem(const Item * pi,Tree * ptree) {
+	Node * new_node;
+
+	if(TreeIsFull(ptree)) {
+		fprintf(stderr,"Tree is full.\n");
+		return false;
+	}
+	if(SeekItem(pi,ptree).child != NULL) {
+		fprintf(stderr,"Attempted to add duplicate item.\n");
+		return false;
+	}
+	new_node=MakeNode(pi);
+	if(new_node == NULL) {
+		fprintf(stderr,"Countn't create node.\n");
+		return false;
+	}
+	ptree->size++;
+	
+	if(ptree->root == NULL) 
+		ptree->root = new_node;
+	else
+		AddNode(new_node,ptree->root);
+	return true;
+}
+
+bool InTree(const Item * pi,const Tree * ptree) {
+	return (SeekItem(pi,ptree).child == NULL) ? false : true;
+}
+
+bool DeleteItem(Item * pi,Tree * ptree) {
+	Pair look;
+
+	look = SeekItem(pi,ptree);
+	if(look.child == NULL) 
+		return false;
+
+	else if(look.parent->left == look.child)
+		DeleteNode(&look->parent->left);
+	else 
+		DeleteNode(&look->parent->right);
+	ptree->size--;
+
+	return true;
+}
+
+void Traverse(const Tree * ptree,void (* pfun)(Item item)) {
+	if(ptree != NULL) 
+		InOrder(ptree->root,pfun);
+}
 
 
