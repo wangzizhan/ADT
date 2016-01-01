@@ -90,4 +90,99 @@ void Traverse(const Tree * ptree,void (* pfun)(Item item)) {
 		InOrder(ptree->root,pfun);
 }
 
+static void InOrder(const Node * root,void (* pfun)(Item item)) {
+	if(root != NULL) {
+		InOrder(root->left,pfun);
+		(*pfun)(root->item);
+		InOrder(root->right,pfun);
+	}
+}
 
+static void DeleteAllNodes(Node * root) {
+	Node * pright;
+	
+	if(root != NULL) {
+		pright = root->right;
+		DeleteAllNodes(root->left);
+		free(root);
+		DeleteAllNodes(pright);
+	}
+}
+
+static void AddNode(Node *new_node,Node * root) {
+	if(ToLeft(&new_node->item,&root->item)) {
+		if(root->left == NULL) 
+			root->left = new_node;
+		else 
+			AddNode(new_node,root->left);
+	}
+	
+	else if(ToRight(&new_node->item,&root->item)) {
+		if(root->right == NULL)
+			root->right = new_node;
+		else 
+			AddNode(new_node,root->right);
+	}
+	else {
+		fprintf(stderr,"location error in AddNode().\n");
+		exit(1);
+	}
+}
+static void ToLeft(const Item * i1,const Item * i2) {
+	int comp1;
+
+	if((comp1 = strcmp(i1->petname,i2->petname))<0)
+		return true;
+	else if(comp1 == 0 && (strcmp(i1->petkind,i2->petkind))<0)
+		return true;
+	else
+		return false;
+}
+
+static void ToRight(const Item * i1,const Item * i2) {
+	int comp1;
+
+	if((comp1 = strcmp(i1->petname,i2->petname))>0)
+		return true;
+	else if(comp1 == 0 && (strcmp(i1->petkind,i2->petkind))>0)
+		return true;
+	else
+		return false;
+}
+
+static Node * MakeNode(const Item * pi) {
+	Node * new_ndoe;
+
+	new_node=(Node *)malloc(sizeof(Node));
+	if(new_node != NULL) {
+		new_node->item = *pi;
+		new_node->left = NULL;
+		new_node->right = NULL;
+	}
+	return new_ndoe;
+}
+
+static Pair SeekItem(const Item * pi,const Tree * ptree) {
+	Pair look;
+	look.parent = NULL;
+	look.child = ptree->root;
+
+	if(look.child == NULL) 
+		return look;
+	while(look.child != NULL) {
+		if(ToLeft(pi,&(look.child->item))) {
+			look.parent = look.child;
+			look.child = look.child.left;
+		}
+		else if(ToRight(pi,&(look.child->item))) {
+			look.parent = look.child;
+			look.child = look.child.right;
+		}
+		else 
+			break;
+	}	
+	
+	return look;
+}
+
+//key code
