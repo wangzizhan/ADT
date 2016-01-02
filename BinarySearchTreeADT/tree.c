@@ -75,11 +75,13 @@ bool DeleteItem(Item * pi,Tree * ptree) {
 	look = SeekItem(pi,ptree);
 	if(look.child == NULL) 
 		return false;
-
+	
+	if(look.parent == NULL)
+		DeleteNode(&ptree->root);
 	else if(look.parent->left == look.child)
-		DeleteNode(&look->parent->left);
+		DeleteNode(&look.parent->left);
 	else 
-		DeleteNode(&look->parent->right);
+		DeleteNode(&look.parent->right);
 	ptree->size--;
 
 	return true;
@@ -151,7 +153,7 @@ static void ToRight(const Item * i1,const Item * i2) {
 }
 
 static Node * MakeNode(const Item * pi) {
-	Node * new_ndoe;
+	Node * new_node;
 
 	new_node=(Node *)malloc(sizeof(Node));
 	if(new_node != NULL) {
@@ -159,7 +161,7 @@ static Node * MakeNode(const Item * pi) {
 		new_node->left = NULL;
 		new_node->right = NULL;
 	}
-	return new_ndoe;
+	return new_node;
 }
 
 static Pair SeekItem(const Item * pi,const Tree * ptree) {
@@ -172,11 +174,11 @@ static Pair SeekItem(const Item * pi,const Tree * ptree) {
 	while(look.child != NULL) {
 		if(ToLeft(pi,&(look.child->item))) {
 			look.parent = look.child;
-			look.child = look.child.left;
+			look.child = look.child->left;
 		}
 		else if(ToRight(pi,&(look.child->item))) {
 			look.parent = look.child;
-			look.child = look.child.right;
+			look.child = look.child->right;
 		}
 		else 
 			break;
@@ -186,3 +188,26 @@ static Pair SeekItem(const Item * pi,const Tree * ptree) {
 }
 
 //key code
+static void DeleteNode(Node ** ptr) {
+	Node * temp;
+	
+	puts((*ptr)->item.petname);
+	if((*ptr)->left == NULL) {
+		temp = *ptr;
+		*ptr = (*ptr)->right;
+		free(temp);
+	}
+	else if((*ptr)->right == NULL) {
+		temp = *ptr;
+		*ptr = (*ptr)->left;
+		free(temp);
+	}
+	else {
+		for(temp = (*ptr)->left;temp->right != NULL;temp = temp->right)
+			continue;
+		temp->right = (*ptr)->right;
+		temp = *ptr;
+		*ptr = (*ptr)->left;
+		free(temp);
+	}
+}	
