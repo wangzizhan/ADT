@@ -9,8 +9,8 @@ typedef struct pair {
 } Pair;
 
 static Node * MakeNode(const Item * pi);
-static bool ToLeft(const Item * i1，const Item * i2);
-static bool ToRight(const Item * i1，const Item * i2);
+static bool ToLeft(const Item * i1,const Item * i2);
+static bool ToRight(const Item * i1,const Item * i2);
 static void AddNode(Node * new_node,Node * root);
 static void InOrder(const Node * root,void (* pfun)(Item item));
 static Pair SeekItem(const Item * pi,const Tree * ptree);
@@ -22,14 +22,14 @@ void InitializeTree(Tree * ptree) {
 	ptree->size = 0;
 }
 
-void TreeIsEmpty(const Tree * ptree) {
+bool TreeIsEmpty(const Tree * ptree) {
 	if(ptree->root == NULL) 
 		return true;
 	else
 		return false;
 } 
 
-void TreeIsFull(const Tree * ptree) {
+bool TreeIsFull(const Tree * ptree) {
 	if(ptree->size == MAXITEMS)
 		return true;
 	else 
@@ -130,7 +130,7 @@ static void AddNode(Node *new_node,Node * root) {
 		exit(1);
 	}
 }
-static void ToLeft(const Item * i1,const Item * i2) {
+static bool ToLeft(const Item * i1,const Item * i2) {
 	int comp1;
 
 	if((comp1 = strcmp(i1->petname,i2->petname))<0)
@@ -141,7 +141,7 @@ static void ToLeft(const Item * i1,const Item * i2) {
 		return false;
 }
 
-static void ToRight(const Item * i1,const Item * i2) {
+static bool ToRight(const Item * i1,const Item * i2) {
 	int comp1;
 
 	if((comp1 = strcmp(i1->petname,i2->petname))>0)
