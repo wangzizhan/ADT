@@ -30,19 +30,19 @@ bool ListIsFull(const List * plist) {
 }
 
 unsigned int ListItemCount(const List * plist) {
-	unsigned count = 0;
-	Node * pnode = * plist;
+	unsigned int count = 0;
+	Node *pnode = *plist;
 
 	while(pnode != NULL) {
 		++count;
-		pnode = pnode -> next;
+		pnode = pnode->next;
 	}
 	return count;
 }
 
 bool AddItem(Item item,List * plist) {
-	Node * pnew;
-	Node * scan = * plist;
+	Node *pnew;
+	Node *scan = *plist;
 	
 	pnew = (Node *)malloc(sizeof(Node));
 	if(pnew == NULL)
@@ -50,32 +50,32 @@ bool AddItem(Item item,List * plist) {
 	
 	CopyToNode(item,pnew);
 	if(scan == NULL) 
-		* plist = pnew;
+		*plist = pnew;//?
 	else {
-		while(scan -> next != NULL)
-			scan = scan -> next;
-		scan -> next = pnew;	
+		while(scan->next != NULL)
+			scan = scan->next;
+		scan->next = pnew;	
 	}
 	return true;
 }
 
 void Traverse(const List * plist,void (* pfun)(Item item)) {
-	Node * pnode = * plist;
+	Node * pnode = *plist;
 	while(pnode != NULL) {
-		(* pfun)(pnode -> item);
-		pnode = pnode -> next;
+		(* pfun)(pnode->item);
+		pnode = pnode->next;
 	}
 }
 
 void EmptyTheList(List * plist) {
 	Node * psave;
 	while(*plist != NULL) {
-		psave = (* plist) -> next;
+		psave = (* plist)->next;
 		free (* plist);
 		* plist = psave;
 	}
 }
 
 static void CopyToNode(Item item,Node * pnode) {
-	pnode -> item = item ;
+	pnode->item = item ;
 }
