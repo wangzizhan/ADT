@@ -20,7 +20,7 @@ int main(void) {
 	puts("Enter first movie title:");
 	while(gets(temp.title) != NULL && temp.title[0] != '\0') { 
 		puts("Enter your rating<0-10>:");
-		scanf("%d",&(temp.rating));
+		scanf("%d",&temp.rating);
 		while(getchar() != '\n')
 			continue;
 		if(AddItem(temp,&movies) == false) {

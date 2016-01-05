@@ -49,6 +49,7 @@ bool AddItem(Item item,List * plist) {
 		return false;
 	
 	CopyToNode(item,pnew);
+	pnew->next = NULL;
 	if(scan == NULL) 
 		*plist = pnew;//?
 	else {
