@@ -1,6 +1,7 @@
 #include<string.h>
 #include<stdio.h>
 #include<stdlib.h>
+
 #include "tree.h"
 
 typedef struct pair {
@@ -100,6 +101,12 @@ static void InOrder(const Node * root,void (* pfun)(Item item)) {
 	}
 }
 
+void DeleteAll(Tree * ptree) {
+	if(ptree != NULL)
+		DeleteAllNodes(ptree->root);
+	ptree->root = NULL;
+	ptree->size = 0;
+}
 static void DeleteAllNodes(Node * root) {
 	Node * pright;
 	
