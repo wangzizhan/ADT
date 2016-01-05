@@ -68,7 +68,7 @@ char menu(void) {
 void addpet(Tree * pt) {
 	Item temp;
 
-	if(TreeIsFull) 
+	if(TreeIsFull(pt)) 
 		puts("No room in the club!");
 	else {
 		puts("Please enter name of the pet:");
@@ -109,9 +109,9 @@ void findpet(const Tree * pt) {
 	uppercase(temp.petkind);
 	printf("%s %s",temp.petname,temp.petkind);
 	if(InTree(&temp,pt))
-		printf("is a member.\n");
+		printf(" is a member.\n");
 	else
-		printf("is not a member.\n");
+		printf(" is not a member.\n");
 }
 
 void droppet(Tree * pt) {
@@ -130,9 +130,9 @@ void droppet(Tree * pt) {
 	uppercase(temp.petkind);
 	printf("%s %s",temp.petname,temp.petkind);
 	if(DeleteItem(&temp,pt))
-		printf("is dropped from the club.\n");
+		printf(" is dropped from the club.\n");
 	else
-		printf("is not a member.\n");
+		printf(" is not a member.\n");
 }
 
 void uppercase(char * str) {
