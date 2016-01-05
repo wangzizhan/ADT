@@ -11,7 +11,7 @@ int main(void) {
 	
 	//initialize
 	InitializeList(&movies);
-	if(ListIsFull(movies)) {
+	if(ListIsFull(&movies)) {
 		fprintf(stderr,"No memory available!\n");
 		exit(1);
 	}
@@ -27,7 +27,7 @@ int main(void) {
 			fprintf(stderr,"Problem allocating memory.\n");
 			break;
 		}
-		if(ListIsFull(movies)) {
+		if(ListIsFull(&movies)) {
 			puts("The list is now full.");
 			break;
 		}
@@ -35,13 +35,13 @@ int main(void) {
 	}
 
 	//show
-	if(ListIsEmpty(movies))
+	if(ListIsEmpty(&movies))
 		printf("No data entered.\n");
 	else {
 		printf("Here is the movie list: \n");
-		Traverse(movies,showmovies);
+		Traverse(&movies,showmovies);
 	}
-	printf("You entered %d movies.\n",ListItemCount(movies));
+	printf("You entered %d movies.\n",ListItemCount(&movies));
 
 	//clean
 	EmptyTheList(&movies);

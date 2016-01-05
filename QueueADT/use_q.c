@@ -8,7 +8,7 @@ int main(void) {
 	
 	InitializeQueue(&line);
 	puts("Testing the Queue interface.Type a to add a value,");
-	puts("type d to delate a value,and type q to quit.");
+	puts("type d to delete a value,and type q to quit.");
 	while((ch=getchar()) != 'q') {
 		if(ch != 'a' && ch != 'd') 
 			continue;
